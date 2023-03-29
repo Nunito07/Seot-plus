@@ -1,0 +1,260 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/Templates/Modulos/main.xhtml">
+
+            <ui:define name="modelos">
+
+
+
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" 
+                           href="#home" role="tab" aria-controls="home" aria-selected="true">Gestionar Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" 
+                           href="#profile" role="tab" aria-controls="profile" aria-selected="false">Gestionar Lotes</a>
+                    </li>
+                </ul>
+
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                        <div class="row justify-content-md-start">
+                            <div class="col-md-2">
+                                <button class="btn btn-info mt-3 disabled" data-toggle="modal" data-target="#">Agregar Nuevo Producto</button> 
+                            </div>
+                        </div>
+
+
+                        <div class="row justify-content-center" id="l">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <h:dataTable headerClass="thead-dark" 
+                                             class="table table-bordered table-striped table-hover" var="produc"
+                                             value="#{productocontroller.productos}" style="margin-top: 15px">
+
+                                    <h:column>
+                                        <f:facet name="header">Referencia</f:facet>
+                                        <h:outputText value="#{produc.prodReferencia}"></h:outputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Modelo</f:facet>
+                                        <h:outputText value="#{produc.prodModelo}"></h:outputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Pulgadas</f:facet>
+                                        <h:outputText value="#{produc.prodPulgadas}"></h:outputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Diametro</f:facet>
+                                        <h:outputText value="#{produc.prodDiametro}"></h:outputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Potencia</f:facet>
+                                        <h:outputText value="#{produc.prodPotencia}"></h:outputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Caudal</f:facet>
+                                        <h:outputText value="#{produc.prodCaudal}"></h:outputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Amperios</f:facet>
+                                        <h:outputText value="#{produc.prodAmperios}"></h:outputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Observaciones</f:facet>
+                                        <h:outputText value="#{produc.prodObservaciones}"></h:outputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Valor Unitario</f:facet>
+                                        <h:outputText value="#{produc.prodvalorUnitario}"></h:outputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Linea</f:facet>
+                                        <h:outputText value="#{produc.tbllineasLinCodigo.linNombre}"></h:outputText>
+                                    </h:column>
+
+                                </h:dataTable>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="row justify-content-md-start">
+                            <div class="col-md-2">
+                                <button class="btn btn-info mt-3 disabled" data-toggle="modal" data-target="">Nuevo Lote de Producción</button> 
+                            </div>
+                        </div>
+                        <div class="row justify-content-center" id="l">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                <h:dataTable headerClass="thead-dark" 
+                                             class="table table-bordered table-striped table-hover" var="lote"
+                                             value="#{loteController.loteList}" style="margin-top: 15px">
+
+                                    <h:column>
+                                        <f:facet name="header">Id Lote</f:facet>
+                                        <h:outputText value="#{lote.lotIdentificador}"></h:outputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Fecha de Fabricación</f:facet>
+                                        <h:outputText value="#{lote.lotFechaFabricacion}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                        </h:outputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Cantidad a Fabricar</f:facet>
+                                        <h:outputText value="#{lote.lotCantidad}"></h:outputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Fecha de Ingreso a Stock</f:facet>
+                                        <h:outputText value="#{lote.lotfechaIngresoStock}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                        </h:outputText>
+                                    </h:column>
+
+                                </h:dataTable>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                </div>
+
+                <!-- FORMULARIO MODAL AGREGAR-->
+
+
+                <div class="modal fade" id="Agregar" tabindex="-1" role="dialog" aria-labelledby="Agregar" aria-hidden="true">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h5 class="modal-title">Agregar producto</h5>
+                                <button class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>   
+                            </div>
+
+                            <div class="modal-body">
+                                <form >
+                                    <div class="form-group">
+                                        <label for="linea" >Linea</label>
+                                        <select id="linea" class="form-control" required="">Linea
+                                            <option> Linea Domestica Hogar</option>
+                                            <option> Linea Industrial Metálica</option>
+                                            <option> Linea Industrial Plástica</option>
+                                            <option> Linea Semi- Industrial Metalica</option>
+
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label for="Referencia">Referencia</label>
+                                        <h:inputText a:type="text"  class="form-control" a:placeholder="Referencia" required=""/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="Modelo">Modelo</label>
+                                        <input type="text"  class="form-control" placeholder="Modelo" id="Modelo" required=""/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="Descripción">Descripción</label>
+                                        <textarea placeholder="Descripción" id="Descripcion"  class="form-control" required=""></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="Precio">Precio </label>
+                                        <input type="text" placeholder="Precio" id="Precio"  class="form-control" required=""/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="Imagen">Insertar Imagen</label>
+                                        <input type="file"  class="form-control" placeholder="Insertar Imagen " id="Imagen" required=""/>
+
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary form-control" onclick= "return validar();">Guardar </button>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- FORMULARIO MODAL EDITAR-->
+
+
+                <div class="modal fade" id="Editar" tabindex="-1" role="dialog" aria-labelledby="Agregar" aria-hidden="true">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h5 class="modal-title">Editar producto</h5>
+                                <button class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>   
+                            </div>
+
+                            <div class="modal-body">
+                                <h:form prependId="false">
+                                    <div class="form-group">
+                                        <label for="linea" >Linea</label>
+                                        <select id="linea" class="form-control" required="" >Linea
+                                            <option> Linea Domestica Hogar</option>
+                                            <option> Linea Industrial Metálica</option>
+                                            <option> Linea Industrial Plástica</option>
+                                            <option> Linea Semi- Industrial Metalica</option>
+
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label for="Referencia">Referencia</label>
+                                        <h:inputText a:type="text"  class="form-control" a:placeholder="Referencia" id="Referencia" required=""/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="Modelo">Modelo</label>
+                                        <input type="text"  class="form-control" placeholder="Modelo" id="Modelo" required=""/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="Descripción">Descripción</label>
+                                        <textarea placeholder="Descripción" id="Descripcion"  class="form-control" required=""></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="Precio">Precio </label>
+                                        <input type="text" placeholder="Precio" id="Precio"  class="form-control" required=""/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="Imagen">Insertar Imagen</label>
+                                        <input type="file"  class="form-control" placeholder="Insertar Imagen " id="Imagen" required=""/>
+
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary form-control" onclick= "return validar();">Actualizar Producto </button>
+
+                                </h:form>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>     
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

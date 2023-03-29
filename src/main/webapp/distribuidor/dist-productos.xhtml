@@ -1,0 +1,279 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/Templates/Modulos/main-dist.xhtml">
+
+            <ui:define name="modelos-dist">
+
+
+                <!--INICIA MODAL CANCELAR-->
+
+                <div id="ModalCancelar" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <h:form prependId="false">
+                            <h:panelGroup id="contentModalCancelar" layout="block" class="modal-content">
+                                <div class="modal-header">
+
+                                    <h4 class="modal-title">Eliminar Cotización</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    ¿Desea cancelar la solicitud?<br></br>
+                                    <p>CÓDIGO COTIZACIÓN:#{cotizacionController.cotSelect.cotCod}</p>
+
+                                </div>
+                                <div class="modal-footer">
+
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                                    <h:commandButton  action="#{cotizacionController.eliminarCot()}"
+                                                      class="btn btn-danger" value="Eliminar" />
+
+                                </div>
+                            </h:panelGroup>
+                        </h:form>
+                    </div>
+                </div>
+
+                <!--FINALIZA MODAL CANCELAR-->
+                <!--INICIA MODAL CONFIRMAR-->
+
+                <div id="ModalConfirmar" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <h:form prependId="false">
+                            <h:panelGroup id="contentModalConfirmar" layout="block" class="modal-content">
+                                <div class="modal-header">
+
+                                    <h4 class="modal-title">Confirmar Pedido</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <h5>Detalle del pedido a realizar</h5>
+                                    <h:dataTable value="#{cotizacionController.cotSelect.cotizacionDetalleList}" var="cd"
+                                                 class="table table-striped">
+                                        <h:column>
+                                            <f:facet name="header">Modelo</f:facet>
+                                                #{cd.producto.prodModelo}
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Cant.</f:facet>
+                                                #{cd.cotDetalleCantidad}
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Subtotal</f:facet>
+                                            $ #{cd.producto.prodvalorUnitario * cd.cotDetalleCantidad}
+                                        </h:column>
+                                    </h:dataTable>
+
+                                </div>
+                                <div class="modal-footer">
+
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    
+                                    <h:commandButton  action="#{cotizacionController.preEditar()}"
+                                                      class="btn btn-primary" value="Modificar" />
+                                    
+                                    <h:commandButton  action="#{cotizacionController.confirmarPedido()}"
+                                                      class="btn btn-primary" value="Confirmar Pedido" />
+
+                                </div>
+                            </h:panelGroup>
+                        </h:form>
+                    </div>
+                </div>
+
+                <!--FINALIZA MODAL CONFIRMAR-->
+                <!--INICIA MODAL AGREGAR AL CARRITO-->
+
+                <div id="modalAddExtractor" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <h:form prependId="false">
+                            <!-- Modal content-->
+                            <h:panelGroup id="contentModalAddExtractor" layout="block" class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Agregar Producto al Carrito</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>Extractor: </label>
+                                        <span class="form-control"> #{cotizacionController.producSeleccionado.prodModelo}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Precio unitario: </label>
+                                        <span class="form-control"> $#{cotizacionController.producSeleccionado.prodvalorUnitario}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Cantidad: </label>
+                                        <h:inputText class="form-control" a:type="number" value="#{cotizacionController.nuevoDetalle.cotDetalleCantidad}" />
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <h:commandLink actionListener="#{cotizacionController.agregarDetalle()}" 
+                                                   a:data-dismiss="modal"
+                                                   class="btn btn-success" value="Agregar">
+                                        <f:ajax execute="@form" render=":tablaPreFactura"/>
+                                    </h:commandLink>
+
+                                </div>
+                            </h:panelGroup>
+                        </h:form>
+
+                    </div>
+                </div>
+
+                <!--FINALIZA MODAL AGREGAR AL CARRITO-->
+
+
+                <!--Inicio de los Tabs de Contenido -->
+
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#productos" role="tab" aria-controls="prod" aria-selected="true">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#cotizaciones" role="tab" aria-controls="profile" aria-selected="false">Cotizaciones</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+
+                    <div class="tab-pane fade show active" id="productos" role="tabpanel" aria-labelledby="home-tab">
+
+                        <div class="row mt-5">
+
+                            <div class="col-9">
+                                <h:form prependId="false">
+                                    <div class="row">
+                                        <ui:repeat value="#{productocontroller.productos}" var="p">
+
+                                            <div class="col-sm-4">
+                                                <div class="card mt-5 border-info" style="width: 18rem;">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">#{p.prodModelo}</h5>
+
+                                                        <h6 class="card-subtitle mb-2">Ref: #{p.prodReferencia}</h6>
+                                                        <p class="card-text"> Pulgadas: #{p.prodPulgadas}</p>
+                                                        <p class="card-text"> Diametro: #{p.prodDiametro}</p>
+                                                        <p class="card-text">Potencia:#{p.prodPotencia}</p>
+                                                        <p class="card-text">Caudal: #{p.prodAmperios}</p>
+                                                        <p class="card-text">valor Unitario: #{p.prodvalorUnitario}</p>
+                                                        <h:commandLink actionListener="#{cotizacionController.seleccionarproducto(p)}" 
+                                                                       class="btn btn-info" value="Agregar"
+                                                                       a:data-toggle="modal" a:data-target="#modalAddExtractor">
+                                                            <f:ajax render=":contentModalAddExtractor"/>
+                                                            <i class="fa fa-plus"></i>
+                                                        </h:commandLink>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </ui:repeat>
+                                    </div>
+                                </h:form>
+
+                            </div>
+
+                            <div class="col-3">
+                                <h:form prependId="false">
+
+                                    <h4>Tu Solicitud</h4>
+                                    <h:dataTable id="tablaPreFactura" class="table table-striped"
+                                                 value="#{cotizacionController.nuevaSolicitud.cotizacionDetalleList}" var="cd">
+                                        <h:column>
+                                            <f:facet name="header">Modelo</f:facet>
+                                                #{cd.producto.prodModelo}
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Cant.</f:facet>
+                                                #{cd.cotDetalleCantidad}
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Subtotal</f:facet>
+                                            $ #{cd.producto.prodvalorUnitario * cd.cotDetalleCantidad}
+                                        </h:column>
+                                    </h:dataTable>
+                                    <h:commandLink class="btn btn-info" value="Solicitar"
+                                                   action="#{cotizacionController.cotizacion()}">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </h:commandLink>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="cotizaciones" role="tabpanel" aria-labelledby="profile-tab">
+                        <h:panelGroup id="tblCotizaciones" layout="block" class="container">
+                            <h:dataTable class="table table-hover table-bordered" 
+                                         value="#{cotizacionController.cotizaciones}"
+                                         var="cot" style="margin-top: 15px;">
+                                <h:column>
+                                    <f:facet name="header"> Código Cotización</f:facet>
+                                    <h:outputText value=" #{cot.cotCod}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Fecha Solicitud </f:facet>
+                                    <h:outputText value="#{cot.cotFechaConsulta}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Valor Cotización</f:facet>
+                                    <h:outputText value="#{cot.cotValortotal}">
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Sucursal Solicitante</f:facet>
+                                    <h:outputText value="#{cot.tblSucursalesUsuId.sucurNombre}">
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Sucursal Ciudad</f:facet>
+                                    <h:outputText value="#{cot.tblSucursalesUsuId.tblciudadCiudCodigo.ciudNombre}">
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Opciones</f:facet>
+                                    <h:form>
+                                        <h:commandLink rendered="#{empty cot.pedidoList}"
+                                                       action="#{cotizacionController.selectCot(cot)}" 
+                                                       class="btn btn-primary"
+                                                       a:data-toggle="modal" a:data-target="#ModalConfirmar">
+                                            <f:ajax render=":contentModalConfirmar"/>
+                                            <i class="fa fa-shopping-bag"></i>
+                                        </h:commandLink>&nbsp;
+                                        <h:commandLink rendered="#{empty cot.pedidoList}"
+                                                       action="#{cotizacionController.selectCot(cot)}" 
+                                                       class="btn btn-danger"
+                                                       a:data-toggle="modal" a:data-target="#ModalCancelar">
+                                            <f:ajax render=":contentModalCancelar"/>
+                                            <i class="fa fa-times"></i>
+                                        </h:commandLink>
+                                    </h:form>
+                                </h:column>
+                            </h:dataTable>
+                        </h:panelGroup>
+                    </div>
+
+                </div>
+
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

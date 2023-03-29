@@ -1,0 +1,295 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/Templates/Modulos/main-dist.xhtml">
+
+            <ui:define name="modelos-dist">
+         
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Envio Reportes</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Garantias Enviadas</a>
+  </li>
+</ul>
+
+<div class="tab-content" id="myTabContent"><!-- CONTENIDO DEL NAV/MODULOS --> 
+
+
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"><!-- INICIA MODULO DE  ENVIO REPORTES DE GARANTIA -->
+
+        <div class="row ">
+            <div class="col-md-12 ">
+
+
+                <!-- MODAL SOLICITAR GARANTIA -->
+
+                <div class="modal fade" id="modalRegistrar" tabindex="-1" role="dialog"  aria-hidden="true">
+                    <div class="modal-dialog modal-md">
+                        <h:panelGroup id="contentModalRegistrar" class="modal-content">
+                            <div class="modal-header">
+
+                                <h5 class="modal-title">Registar Garantia</h5>
+                                <button class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>   
+                            </div>
+                            <div class="modal-body">
+                                <h:form >
+
+                                    <div class="form-group">
+                                        <p>Fecha Vencimiento: #{garantiasControlleres.garantiaSeleccionada.garantFechavencimiento}</p>  
+                                        
+                                        <p>Novedad pedido: #{garantiasControlleres.garantiaSeleccionada.garantProdconCodigoReposicion.tblpedidosPedCodigoUnico.pedNovedad}</p>
+                                                 <h:outputLabel>Producto</h:outputLabel>
+                                                 <div class="col-md-12 col-sm-6 col-xs-12">
+                                                     <h:selectOneMenu id="producto" value="#{garantiasControlleres.idp}"
+                                                                      required="required" class="form-control col-md-7 col-xs-12">
+                                                         <f:selectItems value="#{productocontroller.productos}" var="p" itemLabel="#{p.prodModelo} #{p.prodAmperios} #{p.prodCaudal}" itemValue="#{p.prodReferencia}"/>
+                                                     </h:selectOneMenu>
+
+                                                 </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="Modelo">Enviar registro al Administrador</h:outputLabel>
+                                        <h:inputText value="#{garantiasControlleres.garantiaSeleccionada.garantNovedad}" class="form-control"  id="Modelo" required="" />
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+                                        <h:commandButton type="submit" class="btn btn-success" value="Enviar" action="#{garantiasControlleres.editarGarantia()}"/>
+                                    </div>
+                                </h:form>
+                            </div>
+
+                        </h:panelGroup>
+                    </div>
+                </div>
+
+                <h:dataTable class="table table-striped"
+                             value="#{garantiasControlleres.garantia}" var="g">
+
+                    <h:column>
+                        <f:facet name="header">Codigo Garantia</f:facet>
+                    #{g.garantCodigo}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Linea</f:facet>
+                    #{g.garantProdconCodigoRecibido.tblproductosProdReferencia.tbllineasLinCodigo.linNombre}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Fecha Pedido Recibido</f:facet>
+                    #{g.garantProdconCodigoReposicion.tblpedidosPedCodigoUnico.pedFechaEntrega}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Dias Restantes</f:facet>
+                      
+                        #{g.diasRestantes} días
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Acciones</f:facet>
+                        <h:form>
+                            <h:commandLink class="btn btn-success" 
+                                           a:data-toggle="modal" a:data-target="#modalRegistrar"
+                                           action="#{garantiasControlleres.seleccionarGarantia(g)}">
+                                <f:ajax render=":contentModalRegistrar"/>Solicitar Garantia
+                            </h:commandLink>
+
+
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+
+            </div>
+        </div>
+
+    </div><!-- FINALIZA MODULO  ENVIO REPORTES -->
+
+
+
+
+
+<!-- MODAL INFO  -->
+    <div class="modal fade" id="modalInfo" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <h:panelGroup id="contentModalInfo" class="modal-content">
+                <div class="modal-header">
+
+                    <h5 class="modal-title">Registar Garantia</h5>
+                    <button class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>   
+                </div>
+                <div class="modal-body">
+                    <h:form >
+
+                        <div class="form-group">
+                            <p>Respuesta: #{garantiasControlleres.garantiaSeleccionada.garantNotificacion}</p>  
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+
+                        </div>
+                    </h:form>
+                </div>
+
+            </h:panelGroup>
+        </div>
+    </div>
+
+
+
+<!-- INICIA HISTORIAL DE GERANTIAS -->
+<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <h:dataTable class="table table-striped"
+                         value="#{garantiasControlleres.garantia}" var="g">
+
+                <h:column>
+                    <f:facet name="header">Codigo Garantia</f:facet>
+                    #{g.garantCodigo}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Linea</f:facet>
+                    #{g.garantProdconCodigoRecibido.tblproductosProdReferencia.tbllineasLinCodigo.linNombre}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Estado</f:facet>
+                    #{g.tblEstGarantCodEstGarant.tipoEstGarant}
+                </h:column>
+
+
+                <h:column>
+                    <f:facet name="header">Información</f:facet>
+                    <h:form>
+                        <h:commandLink class="btn btn-info" 
+                                       a:data-toggle="modal" a:data-target="#modalInfo"
+                                       action="#{garantiasControlleres.seleccionarGarantia(g)}">
+                            <f:ajax render=":contentModalInfo"/>Información
+                        </h:commandLink>
+
+
+                    </h:form>
+                </h:column>
+            </h:dataTable>
+
+        </div>
+    </div>
+
+
+</div><!-- FINALIZA HISTORIAL DE GARANTIAS -->
+
+
+</div><!-- CONTENIDO DEL NAV/MODULOS -->
+
+
+
+
+
+<!-- MODAL SOLICITAR GARANTIA -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Solicitar Garantia  || Descripción</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+              <div class="container">
+                <div class="row">
+
+                  <div class="col-md-4">
+                      
+                        <input type="checkbox"/> Domestica
+                        <br/>
+                        <input type="number" placeholder="Cantidad" id="Cantidad"  class="form-control" required=""/>
+                  </div>
+
+                  <div class="col-md-8">
+                        <textarea class="form-control" id="textarea" name="textarea" style="height: 38px;max-height: 38px;margin-top: 24px;" required=""></textarea>
+                  </div>
+
+                </div>
+              </div><hr/>
+                    
+          
+
+                <div class="container">
+                    <div class="row">
+
+                  <div class="col-md-4">
+                      <p/>
+                        <input type="checkbox"/> Metallica
+                        <input type="number" placeholder="Cantidad" id="Cantidad"  class="form-control" required=""/>
+                  </div>
+
+                  <div class="col-md-8">
+                            <textarea class="form-control" id="textarea" name="textarea" style="height: 38px;max-height: 38px;margin-top: 24px;" required=""></textarea>
+                  </div>
+
+                </div>
+              </div><hr/>
+
+              <div class="container">
+                <div class="row">
+
+                  <div class="col-md-4">
+                      <p/>
+                        <input type="checkbox"/> Industrial
+                        <input type="number" placeholder="Cantidad" id="Cantidad"  class="form-control" required=""/>
+                  </div>
+
+                  <div class="col-md-8">
+                            <textarea class="form-control" id="textarea" name="textarea" style="height: 38px;max-height: 38px;margin-top: 24px;" required=""></textarea>
+                  </div>
+
+                </div>
+              </div><hr/>
+
+            <div class="container">
+                <div class="row">
+
+                  <div class="col-md-4">
+                      
+                        <input type="checkbox"/> Semi-Industrial
+                        <input type="number" placeholder="Cantidad" id="Cantidad"  class="form-control" required=""/>
+                  </div>
+
+                  <div class="col-md-8">
+                            <textarea class="form-control" id="textarea" name="textarea" style="height: 38px;max-height: 38px;margin-top: 24px;" required=""></textarea>
+                  </div>
+
+                </div>
+              </div>
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success " onclick="eliminar(eliminar)">Enviar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

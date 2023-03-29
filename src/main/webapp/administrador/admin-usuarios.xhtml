@@ -1,0 +1,333 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/Templates/Modulos/main.xhtml">
+
+            <ui:define name="modelos">
+                <!-- FORMULARIO MODAL AGREGAR-->
+
+
+                <div class="modal fade" id="Agregar" tabindex="-1" role="dialog" aria-labelledby="Agregar" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <h:panelGroup id="contentModalAgregar" layout="block" class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Registrar Empleado</h5>
+                            </div>
+                            <div class="modal-body">
+                                <h:form prependId="">
+                                    <h:inputText a:placeholder="Nombres" value="#{usuarioController.nuevoUser.usuNombres}" id="nombres"  required="true" 
+                                                 a:pattern="[A-z a-z á-é-í-ó-ú-ñ-Ñ]{5,50}" requiredMessage="Campo obligatorio"/>
+                                    <h:messages for="nombres" style="color: red;"/>
+                                    <h:inputText a:placeholder="Primer Apellido" value="#{usuarioController.nuevoUser.usuPrimerApellido}" a:type="text" required="true" 
+                                                 id="pAp" a:pattern="[A-z a-z á-é-í-ó-ú-ñ-Ñ]{5,50}" requiredMessage="Campo obligatorio" style="margin-left: 3px;"/><hr/>
+                                    <h:messages for="pAp" style="color: red;"/>
+                                    <h:inputText a:placeholder="Segundo Apellido" value="#{usuarioController.nuevoUser.usuSegundoApellido}" a:type="text" required="true" 
+                                                 a:pattern="[A-z a-z á-é-í-ó-ú-ñ-Ñ]{5,50}" requiredMessage="Campo obligatorio"/>
+                                    <h:messages for="usuario" style="color: red;"/>
+                                    <h:inputText a:placeholder="Dirección" value="#{usuarioController.nuevoUser.usuDireccion}" a:type="text" required="true" 
+                                                 a:pattern="[A-z a-z á-é-í-ó-ú-ñ-Ñ]{5,50}" requiredMessage="Campo obligatorio" style="margin-left: 3px;"/><hr/>
+                                    <h:messages for="usuario" style="color: red;"/>
+                                    <h:inputText a:placeholder="Teléfono" value="#{usuarioController.nuevoUser.usuTelefono}" a:type="number" required="true"/>
+                                    <h:messages for="usuario" style="color: red;"/>
+                                    <h:inputText a:placeholder="Correo Electrónico" value="#{usuarioController.nuevoUser.usuCorreoElectronico}" a:type="email" required="true" 
+                                                 a:pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" style="margin-left: 3px;"/><hr/>
+                                    <h:messages for="usuario" style="color: red;"/>
+                                    <h:selectOneMenu id="tipoDocumento" value="#{usuarioController.nuevoUser.tblrolesRolId}" 
+                                                     class="form-control col-md-7 col-xs-12">
+                                        <f:selectItem itemLabel="Seleccione el rol" itemValue="" ></f:selectItem>
+                                        <f:selectItems value="#{usuarioController.rolList}" 
+                                                       var="ep" itemLabel="#{ep.rolNombre}"
+                                                       itemValue="#{ep.rolId}"/>
+                                    </h:selectOneMenu>
+                                </h:form>
+                            </div>
+                            <div class="modal-footer">
+                                <h:form prependId="false">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-right: 3px;">Close</button>
+                                    <h:commandButton class="btn btn-info disabled" value="Registrar" />
+                                </h:form>
+                            </div>
+                        </h:panelGroup>
+                    </div>
+
+                </div>
+
+                <!-- FORMULARIO MODAL EDITAR-->
+
+                <!-- MODAL DE EDITAR-->
+                <div id="editModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <h:panelGroup id="contentModalEditar" layout="block" class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Seguro de eliminar al usuario:</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Nombres:  #{usuarioController.usuarioSeleccionado.usuNombres}</p>
+                                <p>Primer Apellido:  #{usuarioController.usuarioSeleccionado.usuPrimerApellido} </p>
+                                <p>Segundo Apellido: #{usuarioController.usuarioSeleccionado.usuSegundoApellido}</p>
+                                <p>Rol: #{usuarioController.usuarioSeleccionado.tblrolesRolId.rolNombre}</p>
+                                <p>Estado: #{usuarioController.usuarioSeleccionado.usuEstado}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <h:form prependId="false">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-right: 3px;">Close</button>
+                                    <h:commandButton class="btn btn-info" value="Editar" action="#{usuarioController.editarEstado()}"/>
+                                </h:form>
+                            </div>
+                        </h:panelGroup>
+
+                    </div>
+                </div>
+                <!-- MODAL EDITAR -->
+                <h:messages globalOnly="true" showDetail="true" 
+                            style="display: flex; padding-left: 50px; color: #00ccff;" 
+                            infoStyle="color:#002CE0;" 
+                            warnStyle="background: #FFF;" errorStyle="background: #FFF;"/> 
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" 
+                           role="tab" aria-controls="home" aria-selected="true">Perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" 
+                           role="tab" aria-controls="profile" aria-selected="false">Gestion usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="clave-tab" data-toggle="tab" href="#clave" role="tab" 
+                           aria-controls="clave" aria-selected="false">Actualizar Contraseña</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6"> 
+                                    <h:form id="infoUserAdmin">
+                                        <table class="table table-hover">
+                                            <thead>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="">
+                                                        <div class="justify-content-center">
+                                                            <img src="../resources/img/user.png" class="img-fluid rounded-circle" width="200"
+                                                                 height="200" alt="Generic placeholder thumbnail" style="text-align: center; margin-left: 30px;border: 3px solid #fff;
+                                                                 margin-top: 50px; margin-bottom:50px;  "/>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Nombres: </th>
+                                                    <td colspan="2"><h:inputText value="#{sessionController.user.usuNombres}"
+                                                                                 a:type="text" required="true" 
+                                                                                 requiredMessage="Campo requerido" id="name"
+                                                                                 a:pattern="[a-z A-z á-é-í-ó-ú-ñ-Ñ]{5,40}"/>
+                                                        <h:messages style="color: red;" for="name"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Primer Apellido: </th>
+                                                    <td colspan="2"><h:inputText value="#{sessionController.user.usuPrimerApellido}"
+                                                                                 a:type="text" required="true"
+                                                                                 requiredMessage="Campo requerido" id="pAp"
+                                                                                 a:pattern="[a-z A-z á-é-í-ó-ú-ñ-Ñ]{5,40}"/>
+                                                        <h:messages style="color: red;" for="pAp"/>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Segundo Apellido: </th>
+                                                    <td colspan="2"><h:inputText value="#{sessionController.user.usuSegundoApellido}"
+                                                                                 a:type="text" required="true"
+                                                                                 requiredMessage="Campo requerido" id="sAp"
+                                                                                 a:pattern="[a-z A-z á-é-í-ó-ú-ñ-Ñ]{5,40}"/>
+                                                        <h:messages style="color: red;" for="sAp"/>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Dirección: </th>
+                                                    <td colspan="2"> <h:inputText value="#{sessionController.user.usuDireccion}"
+                                                                                  a:type="text" required="true"
+                                                                                  requiredMessage="Campo requerido"  id="dire"/>
+                                                        <h:messages style="color: red;" for="dire"/>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th scope="row">Teléfono: </th>
+                                                    <td colspan="2"><h:inputText value="#{sessionController.user.usuTelefono}"
+                                                                                 a:type="number" required="true"
+                                                                                 a:pattern="[0-9]"
+                                                                                 requiredMessage="Campo requerido" id="tele"/>
+                                                        <h:messages style="color: red;" for="tele"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Correo Electrónico: </th>
+                                                    <td colspan="2"><h:inputText value="#{sessionController.user.usuCorreoElectronico}"
+                                                                                 a:type="email" required="true"
+                                                                                 a:pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
+                                                                                 requiredMessage="Campo requerido" id="mail"/>
+                                                        <h:messages style="color: red;" for="mail"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <div  class="row justify-content-center" style="margin-top: 30px;">
+                                                            <h:commandButton class="btn btn-info" value="Actualizar"
+                                                                             action="#{sessionController.actualizarUserAdmin()}"></h:commandButton>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--Esta vaina es otro tab-->
+
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="row justify-content-sm-start" style="margin-left: 2px; margin-top: 5px;">
+                            <h:form prependId="false">
+                                <h:commandLink class="btn btn-info"
+                                               a:data-toggle="modal" a:data-target="#Agregar">
+                                    <f:ajax render=":contentModalAgregar"/>
+                                    <i class="fa fa-plus-square"> Registrar Empleado </i>
+                                </h:commandLink>
+                            </h:form>
+                        </div>
+                        <h:dataTable headerClass="thead-dark" class="table table-bordered table-striped" 
+                                     var="user"
+                                     value="#{usuarioController.userList}" style="margin-top: 15px">
+
+                            <h:column>
+                                <f:facet name="header">Nombres</f:facet>
+                                <h:outputText value="#{user.usuNombres}"></h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Primer Apellido</f:facet>
+                                <h:outputText value="#{user.usuPrimerApellido}"></h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Segundo Apellido</f:facet>
+                                <h:outputText value="#{user.usuSegundoApellido}"></h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Dirección</f:facet>
+                                <h:outputText value="#{user.usuDireccion}"></h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Telefono</f:facet>
+                                <h:outputText value="#{user.usuTelefono}"></h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Correo Electronico</f:facet>
+                                <h:outputText value="#{user.usuCorreoElectronico}"></h:outputText>
+                            </h:column>   
+                            <h:column>
+                                <f:facet name="header">Estado</f:facet>
+                                <h:outputText value="#{user.usuEstado}"></h:outputText>
+                            </h:column>   
+                            <h:column>
+                                <f:facet name="header">Rol</f:facet>
+                                <h:outputText value="#{user.tblrolesRolId.rolNombre}"></h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Acciones</f:facet>
+                                <h:form>
+
+                                    <!-- bloqueo -->
+                                    <h:commandLink   action="#{usuarioController.usuarioSeleccionado(user)}"
+                                                     class="btn btn-warning"
+                                                     a:data-toggle="modal" a:data-target="#editModal">
+                                        <f:ajax render=":contentModalEditar"/>
+                                        <i class="fa fa-lock "></i>
+                                    </h:commandLink>
+                                </h:form>
+                            </h:column> 
+
+
+                        </h:dataTable>
+
+                    </div>
+                    <div class="tab-pane fade" id="clave" role="tabpanel" aria-labelledby="clave-tab">
+                        <div class="container" style="margin-top: 150px;">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6">
+                                    <h:form>
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="2" style="text-align: center;"><h2>Actualizar Contraseña</h2></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Contraseña Actual:  </th>
+                                                    <td>
+                                                        <h:inputSecret  class="form-control" value="#{sessionController.clave}" required="true"
+                                                                        requiredMessage="Campo Requerido" id="clv1"/>
+                                                        <h:messages style="color: red;" for="clv1"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Nueva Contraseña:  </th>
+                                                    <td>
+                                                        <h:inputSecret  class="form-control" value="#{sessionController.newClave}" required="true"
+                                                                        requiredMessage="Campo Requerido" id="clv2"/>
+                                                        <h:messages style="color: red;" for="clv2"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Confirmar Contraseña:  </th>
+                                                    <td colspan="2">
+                                                        <h:inputSecret  class="form-control" value="#{sessionController.confirClave}" required="#{sessionController.newClave}"
+                                                                        requiredMessage="Campo Requerido" id="clv3"/>
+                                                        <h:messages style="color: red;" for="clv3"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <div  class="row justify-content-center" style="margin-top: 30px;">
+                                                            <h:commandButton class="btn btn-info" value="Actualizar"
+                                                                             action="#{sessionController.editPass()}"></h:commandButton>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </ui:define>
+
+
+        </ui:composition>
+    </body>
+</ui:composition>

@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Home Page</title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        
+        <link rel="stylesheet"  href="#{request.contextPath}/resources/css/bootstrap.min.css"/> <!-- estaba min -->
+        <link rel="stylesheet"  href="#{request.contextPath}/resources/css/popper.css"/> <!-- COMP DE BOOSTRAP -->
+        <link rel="stylesheet"  href="#{request.contextPath}/resources/css/component.css"/>
+        <link rel="icon" type="image/png" href="#{request.contextPath}/resources/img/Favicon.png" />
+        
+    </head>
+    
+    <body>
+        <div class="container-fluid">
+            <div id="splitlayout" class="splitlayout">
+
+                <div class="intro">
+
+                    <div class="side side-left">
+                        <header>
+                            <h2 style="font-family: initial;margin-left: 30px;text-align: left;">E&amp;M Extractores</h2>
+                            <div style="padding-top: 30px;">
+                                <a href="Registro.xhtml"><button type="button" class="btn btn-outline-light">Ingresar/Registro</button></a>
+                            </div>
+                        </header>
+
+                        <div class="intro-content">
+                            <div class="profile"><img src="resources/img/1.jpg" alt="profile1"/></div>
+                            <h1><span>E&amp;M </span><span>¿Quienes Somos?</span></h1>
+                        </div>
+                        <div class="overlay"></div>
+                    </div>
+
+                    <div class="side side-right">
+                        <div class="intro-content">
+                            <div class="profile"><img src="resources/img/6.jpg" alt="profile2"/></div>
+                            <h1><span>Galeria</span><span>Ubíquenos</span></h1>
+                        </div>
+                        <div class="overlay"></div>
+                        <div class="row" style="margin-left: 570px;padding-top: 650px;">
+
+                            <div id="imgcirculo">     
+                                <img src="resources/img/español.jpg" class="img-fluid rounded-circle" width="40" height="50" alt="Generic placeholder thumbnail"/>  
+                            </div>
+
+
+                            <div id="imgcirculo">     
+                                <a href="English.html"><img src="resources/img/ingles.png" class="img-fluid rounded-circle" width="40" height="50" alt="Generic placeholder thumbnail" /></a>
+                            </div>	
+                        </div>
+                    </div>
+                </div><!-- /intro -->
+
+                <div class="page page-right">
+                    <div class="page-inner">
+                        <section>
+                            <h2 style="text-align: center;">Ubíquenos</h2>
+
+                            <div id="googleMap" style="width:100%;height:300px;"></div>
+
+                            <script>
+                               function myMap() {
+                               var mapProp= {
+                               center:new google.maps.LatLng(4.701327220394074,-74.11316871643066),
+                               zoom:12
+                               };
+                               var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+                                        }
+                            </script>
+
+
+
+                        </section><br/><br/><br/>
+
+
+                        <section>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h2>Contáctenos</h2>
+                                        <h3 style="font-size: initial;color: black">
+                                            Carrera. 41 Nº 5A - 59<hr/> 
+                                            Telefonos: 802 41 18 - 802 40 97<hr/>
+                                            Cel: 321 496 41 69 y 310 883 3288 <hr/>
+                                            Extractoreseym1@hotmail.com<hr/>
+                                            Bogotá - Colombia<hr/> 
+                                        </h3>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <h2>Sugerencias</h2>
+                                        <form>
+                                            <div class="form-group">
+                                                <textarea class="form-control" id="textarea" name="textarea" style="margin-top: 0px;margin-bottom: 0px; height: 90px;max-height: 90px;" required=""></textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="correo">Correo Electronico</label>
+                                                <input type="email" class="form-control" id="correo" aria-describedby="emailHelp" placeholder="Ejemplo77@gmail.com" required=""/><hr/>
+                                                <div>
+                                                    <button type="submit" class="btn btn-success">Enviar</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section><br/><br/><br/>
+
+                        <section>
+                            <h2 style="text-align: center;">Galeria</h2><br/>
+
+                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img class="d-block w-100" src="img/3.jpg" alt="First slide"/>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img class="d-block w-100" src="img/4.jpg" alt="Second slide"/>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img class="d-block w-100" src="img/5.jpg" alt="Third slide"/>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img class="d-block w-100" src="img/7.jpg" alt="Third slide"/>
+                                    </div>
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div><br/><br/><br/>
+
+                        </section >
+
+                        <section style="text-align: justify;">
+                            <h2>¿Como Funcionan?</h2>
+                            <p>Un extractor de aire es un aparato destinado a aspirar y renovar el aire . Está compuesto por un ventilador conectado a un motor que le transfiere el movimiento.</p>
+
+                            <p>Al igual que los aparatos deshumidificadores, eliminar el exceso de humedad que puede provocar el deterioro de la pintura y la aparición de moho y combatir los malos olores</p>
+
+
+                        </section>
+                        <section style="text-align: justify;">
+                            <h2>Instalación</h2>
+                            <p>1.Ddebe elegir el lugar más apropiado para la instalación.</p>
+                            <p>2.El extractor tendrá que estar conectado a la corriente eléctrica, por lo tanto es necesario desconectar del panel eléctrico de la casa la energía del área en la que se estará trabajando.</p>
+                            <p>3. Instalación del extractor: El proceso es simple, será necesario limpiar la rejilla, ensamblar extractor y marcar los puntos donde será fijado. Taladrar, conectar el tubo de ventilación con el extractor y fijarlo al techo. Para obtener energía para el equipo, puede usar dos opciones: conectarlo con un cable en el exterior a una toma, o hacer una conexión debajo del falso techo. Este segundo método activará el extractor cada vez que encendamos la luz.</p>
+
+                        </section>
+                    </div><!-- /page-inner -->
+                </div><!-- /page-right -->
+
+
+                <div class="page page-left">
+                    <div class="page-inner">
+                        <section style="text-align: justify;">
+                            <h2>Empresa</h2>
+                            <p>Contamos con mas de 17 años de experiencia en el mercado a nivel local y nacional, nuestra experiencia y calidad de nuestros productos nos han colocado como lideres del sector. Estamos comprometidos con las exigencias que satisfacen las necesidades de nuestros clientes.</p>
+                            <p>La unión de la experiencia adquirida durante décadas de trabajo con ventiladores, junto con la tecnología aportada por ingenieros distribuidos en diferentes departamentos, ha permitido que E&amp;M se sitúe entre los mayores fabricantes de ventilación industrial del mundo.</p>
+                            <p>Las aplicaciones  industriales  requieren gran capacidad de adaptación a las especificaciones de cada proyecto y flexibilidad en la fabricación, para cumplir con las necesidades reales de cada cliente.</p>
+                            <p>Para cumplir con este objetivo E&amp;M dispone de una línea de productos Standard y una línea de productos de fabricación especial,  para la construcción de ventiladores adaptados a las exigencias de nuestros clientes.</p>
+                        </section>
+                        <section style="text-align: justify;">
+                            <h2>Instalaciones</h2>
+                            <p>Las modernas instalaciones de nuestro laboratorio de ensayos aerodinámicos, con una superfície de más de 450 m2, son el centro neurálgico del desarrollo de todos nuestros productos. Aquí obtenemos la máxima fiabilidad en los resultados de los estrictos controles a los que sometemos tanto productos como procesos de fabricación.</p>
+                            <p>Hemos iniciado además, una nueva etapa en el estudio y diseño de nuevas tendencias en ventilación que ayuden a la preservación del medio ambiente y al ahorro energético</p>
+                            <p>Nuestro departamento de diseño, investigación y desarrollo trabaja intensamente para mejorar día a día la calidad y eficiencia de nuestros productos.</p>
+                        </section>
+                        <section style="text-align: justify;">
+                            <h2>Servicios</h2>
+
+                            <p>Nuestra Empresa presta los servicios de asesoramiento,diseño e instalacion de sistemas de extraccion de tipo semi-industrial e industrial, según las necesidades del cliente</p>
+                            <h3>Distribuidores</h3>
+                            <p>Nuestra empresa cuenta con una amplia red de distribuidores entre los cuales se encuentran:<br>
+                                </br>
+                                Almacén El Polo Eléctrico<br/>
+                                Electro Super Chapinero<br/>
+                                Licuadoras y Eléctricos la 74<br/>
+                                Entre otros</p>
+
+                        </section>
+                        <section style="text-align: justify;">
+                            <h2 >Medio Ambiente</h2>
+                            <p>E&amp;M ha iniciado una nueva etapa de estudio y diseño de nuevas tendencias de ventilación que ayuden a la preservación del medio ambiente y al ahorro energético que tanto preocupa a la sociedad actual.</p>
+                            <p>Para obtener una mejora en la eficiencia energética de los ventiladores y de las instalaciones de ventilación, el departamento de ingeniería enérgetica de E&amp;M ha equilibrado los consumos de energía de los ventiladores con sus máximos rendimientos, en las zonas habituales de trabajo, siendo necesario para esto una restructuración de las curvas y su presentación en este y en futuros catálogos de E&amp;M.</p>
+
+                        </section>
+                    </div><!-- /page-inner -->
+                </div><!-- /page-left -->
+
+                <a href="#" class="back back-right" title="back to intro">&rarr;</a>
+                <a href="#" class="back back-left"  title="back to intro">&larr;</a>
+            </div><!-- /splitlayout -->
+        </div><!-- /container -->      
+    </body>
+    
+     <script src="#{request.contextPath}/resources/js/jqu.js"></script>
+     <script src="#{request.contextPath}/resources/js/modernizr.custom.js"></script>
+     <script src="#{request.contextPath}/resources/js/classie.js"></script>
+     <script src="#{request.contextPath}/resources/js/cbpSplitLayout.js"></script>
+     <script src="#{request.contextPath}/resources/js/popper.js"></script>
+     <script src="#{request.contextPath}/resources/js/bootstrap.min.js"></script>
+     
+
+    
+</html>
+
+

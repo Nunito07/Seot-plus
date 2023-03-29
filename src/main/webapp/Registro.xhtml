@@ -1,0 +1,261 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <h:head>
+        <title>Registrarse</title>
+
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+
+
+        <link rel="stylesheet"  href="#{request.contextPath}/resources/css/registro.css"/><!-- estaba min -->
+        <link rel="stylesheet"  href="#{request.contextPath}/resources/css/bootstrap.min.css"/> <!-- estaba min -->   
+        <link rel="stylesheet"  href="#{request.contextPath}/resources/css/popper.css"/> <!-- estaba min -->
+        <link rel="stylesheet"  href="#{request.contextPath}/resources/css/sweetalert2.css"/> <!-- estaba min -->
+        <link rel="stylesheet"  href="#{request.contextPath}/resources/css/tether.css"/> <!-- estaba min -->
+        <link rel="icon" type="image/png" href="#{request.contextPath}/resources/img/Favicon.png" />
+
+
+    </h:head>
+
+    <h:body>
+        <div id="header" style="height: 35px;" ><h6 style="height: 35px; color: white;font-family: arial;font-size: 30px;">E&amp;M Extractores</h6>></div>
+
+
+        <div class="container" style="margin-top:20px;">
+
+            <div class="row d flex justify-content-center">
+                <!-- AQUI COMIENZA OTRA CAJA -->
+                <div class="col-md-4" id="ingreso" >
+                    <div>
+                        <h2 style="color: black;padding-top: 30px;">Ingreso</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h:messages globalOnly="true" showDetail="true" 
+                                        style="display: flex; padding-left: 50px; color: #00ccff;" 
+                                        infoStyle="color:#002CE0;" 
+                                        warnStyle="background: #FFF;" errorStyle="background: #FFF;"/>            
+                            <h:form id="formLogin" class="shadow well" prependId="false">
+
+                                <div class="form-group">
+                                    <h:outputLabel for="validationCustom01" style="color: black;">Correo Eléctronico</h:outputLabel>
+                                    <h:inputText  class="form-control" 
+                                                  id="usuario"  
+                                                  value="#{sessionController.correo}"  
+                                                  required="true" a:type="email"
+                                                  requiredMessage="Campo obligatorio"
+                                                  validatorMessage="Formato de correo incorrecto"
+                                                  a:placeholder="Ingrese su correo"
+                                                  a:pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+                                    <h:messages for="usuario" style="color: red;"/>
+                                </div>  
+
+                                <div class="form-group">
+                                    <h:outputLabel for="exampleInputPassword1" style="color: black;">Contraseña</h:outputLabel>
+                                    <h:inputSecret class="form-control" 
+                                                   id="password" value="#{sessionController.clave}" 
+                                                   required="true" a:type="password"
+                                                   requiredMessage="Campo obligatorio"
+                                                   validatorMessage="Contraseña incorrecta"
+                                                   a:placeholder="Ingrese su contraseña"/>
+                                    <h:messages for="password" style="color: red;"/>
+                                </div> 
+
+                                <div class="form-check">
+                                    <label class="form-check-label" style="color: black;">
+                                        <input type="checkbox" class="form-check-input"/>
+                                        Recordar contraseña
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <h:commandButton action="#{sessionController.iniciarSesion()}" class="btn btn-info" value="Enviar"></h:commandButton>
+
+                                    <!-- INFORMACION MODAL DE LOS USUSARIOS SUSTENTACIÓN -->
+
+
+                                </div>
+
+                            </h:form>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-top: 20px;">
+                            <h:messages for="formRecuperaClave" id="msjPage" showDetail="true"/>
+                            <h:form id="formRecuperaClave" prependId="false" class="container-fluid">
+                                <div>
+                                    <h2 style="color: black;">¿Olvido su contraseña?</h2>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <h:inputText id="recupera" a:type="email" class="form-control"
+                                                     required="true" a:pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                                                     requiredMessage="Complete el campo para recuperar su contraseña"
+                                                     a:placeholder="Ingrese su correo"
+                                                     value="#{recuperarClave.correo}"/>
+
+                                        <h:messages for="recupera" style="color: red;"/>
+                                        <h:commandButton value="Enviar" class="btn btn-info" action="#{recuperarClave.recuperar()}"></h:commandButton>
+                                    </div>
+                                    <small class="form-text " style="color: black;">En un instante le enviaremos un correo para confimar su solicitud.</small>
+                                    <hr/>        
+                                </div>
+
+                            </h:form>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- AQUI COMIENZA UNA CAJA -->
+                <div class="col-md-4">
+
+                    <h2 style="color: black;padding-top: 30px; ">SEOT</h2><br/>
+
+                    <p style="text-align: justify;color: black;"> E&amp;M  le da la bienvenida al Sistema de información S.E.O.T , nuestra empresa, no solo cuenta con una gran variedad de extractores , si no que también cuenta con un proyecto en formación, el cual como usuario podrá disfrutar de sus beneficios.</p>
+
+                    <p style="text-align: justify;color: black;"> Queremos que como socio usted haga parte del proyecto.</p>
+
+                    <p style="text-align: justify;color: black;">Lo invitamos a que se registre para mayor información. </p>		
+
+                    <a href="HomePage.xhtml"><button style="margin-left: 120px; margin-top: 100px;"  type="button" class="btn btn-outline-info btn-lg ">
+                            <span class="fa fa-home fa-1x"></span>Inicio
+                        </button></a>
+                </div>
+
+
+                <!-- AQUI COMIENZA UNA CAJA -->
+                <div class="col-md-4">
+                    <div>
+                        <h2 style="color: black;padding-top: 30px;">Registro</h2>
+                    </div>
+
+                    <h:form>
+                        <div class="form-group">  
+                            <div class="row">
+                                <div class="col">
+                                    <h:outputLabel >Nombres</h:outputLabel>
+                                    <h:inputText id="nombres" class="form-control" value="#{usuarioController.nuevoUser.usuNombres}" 
+                                                 required="true" a:type="text"
+                                                 requiredMessage="Campo requerido" a:placeholder="Nombres"
+                                                 title="Error: catacteres incorrectos"
+                                                 a:pattern="[A-Z a-z]{5,40}"/>
+                                    <h:messages for="nombres" style="color: red;"/>
+                                </div>                              
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <h:outputLabel >Primer Apellido</h:outputLabel>
+                                    <h:inputText class="form-control" value="#{usuarioController.nuevoUser.usuPrimerApellido}"
+                                                 id="pAp" required="true" a:type="text"
+                                                 requiredMessage="Campo requerido"
+                                                 a:pattern="[A-Z a-z]{5,40}" a:placeholder="Primer apellido"
+                                                 title="Error: catacteres incorrectos"/>
+                                    <h:messages for="pAp" style="color: red;"/>
+                                </div>
+                                <div class="col">
+                                    <h:outputLabel >Segundo Apellido</h:outputLabel>
+                                    <h:inputText class="form-control" value="#{usuarioController.nuevoUser.usuSegundoApellido}"
+                                                 required="true" id="sAp" a:type="text"
+                                                 requiredMessage="Campo requerido"
+                                                 a:pattern="[A-Z a-z]{5,40}" a:placeholder="Segundo apellido"
+                                                 title="Error: catacteres incorrectos"/>
+                                    <h:messages for="sAp" style="color: red;"/>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-row" style="color: black;">
+                            <div class="form-group col-md-6">
+                                <h:outputLabel for="inputPassword4">Contraseña</h:outputLabel>
+                                <h:inputSecret  class="form-control" value="#{usuarioController.nuevoUser.usuContrasena}" 
+                                                required="true" id="clv" a:type="password"
+                                                requiredMessage="Campo requerido" 
+                                                a:placeholder="Contraseña" a:pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                                title="Debe tener más de 8 caracteres, M, m y número"/>
+                                <h:messages for="clv" style="color: red;"/>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <h:outputLabel for="inputPassword4">Confirmar Contraseña</h:outputLabel>
+                                <h:inputSecret class="form-control" required="#{usuarioController.nuevoUser.usuContrasena}" 
+                                               id="clv2" a:type="password"
+                                               requiredMessage="Campo requerido" 
+                                               a:placeholder="Confirmar contraseña" a:pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                               title="Las contraseñas no coinciden"/>
+                                <h:messages for="clv2" style="color: red;"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="color: black;">
+                            <h:outputLabel for="inputAddress2">Correo Electronico</h:outputLabel>
+                            <h:inputText class="form-control"  value="#{usuarioController.nuevoUser.usuCorreoElectronico}" 
+                                         required="true" a:type="email" id="mail"
+                                         a:pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
+                                         a:placeholder="Correo electrónico"
+                                         requiredMessage="Campo Requerido"/>
+                            <h:messages for="mail" style="color: red;"/>
+                        </div>
+
+                        <div class="form-group" style="color: black;">
+                            <h:outputLabel for="inputAddress2">Direccion</h:outputLabel>
+                            <h:inputText class="form-control"  value="#{usuarioController.nuevoUser.usuDireccion}" 
+                                         required="true" id="direcc"
+                                         requiredMessage="Campo requerido" a:type="text"
+                                         a:placeholder="Dirección"/>
+                            <h:messages for="direcc" style="color: red;"/>
+                        </div>
+                        <div class="form-row" style="color: black;">
+                            <div class="form-group col-md-8">
+                                <h:inputHidden>Telefono</h:inputHidden>
+                                <h:inputText  class="form-control" value="#{usuarioController.nuevoUser.usuTelefono}" 
+                                              required="true" a:type="number" id="tele"
+                                              requiredMessage="Campo requerido"
+                                              a:placeholder="Teléfono" a:pattern="[0-9]"
+                                              title="Sólo puede digitar números"/>
+                                <h:messages for="tele" style="color: red;"/>
+                            </div>
+
+                        </div>
+                        <h:commandButton action="#{usuarioController.crearUser()}" type="submit" class="btn btn-info btn-xs" value="Registrarse"></h:commandButton>
+                    </h:form>
+
+
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4" style="margin-left: 100px;margin-top: 20px;">
+
+
+                </div>
+            </div>
+        </div>
+    </h:body>
+
+    <script src="#{request.contextPath}/resources/js/jqu.js"></script>
+    <script src="#{request.contextPath}/resources/js/sweetalert2.js"></script>
+    <script src="#{request.contextPath}/resources/js/popper.js"></script>
+    <script src="#{request.contextPath}/resources/js/tether.js"></script>
+    <script src="#{request.contextPath}/resources/js/bootstrap.min.js"></script>
+
+
+</ui:composition>

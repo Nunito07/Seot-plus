@@ -1,0 +1,336 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/Templates/Modulos/main-dist.xhtml">
+
+            <ui:define name="modelos-dist">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" 
+                           role="tab" aria-controls="home" aria-selected="true">
+                            <strong>Perfil</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="editPass-tab" data-toggle="tab" href="#editPass" 
+                           role="tab" aria-controls="editPass" aria-selected="false">
+                            <strong>Actualizar Contraseña</strong></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
+                           role="button" data-toggle="dropdown" aria-haspopup="true" 
+                           aria-expanded="false">
+                            <strong>Formularios</strong>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <h:form class="nav-link dropdown-item" id="sedeForm-tab" a:data-toggle="tab" a:href="#sedeForm" 
+                                    role="tab" a:aria-controls="sedeForm" 
+                                    a:aria-selected="false">
+
+                                <!-- FORM SEDE-->
+                                <h:commandLink   action="#{usuarioController.usuarioSeleccionado(user)}"
+                                                 class="text"
+                                                 a:data-toggle="modal" a:data-target="#sucurModal"
+                                                 value="Formulario Sucursal">
+                                    <f:ajax render=":contentModalSucur"/>
+                                </h:commandLink>
+                            </h:form>
+                            <h:form class="nav-link dropdown-item" id="distriForm-tab" a:data-toggle="tab" a:href="#distriForm" 
+                                    role="tab" a:aria-controls="distriForm" a:aria-selected="false">
+
+                                <!-- FORM SEDE-->
+                                <h:commandLink   action="#{usuarioController.usuarioSeleccionado(user)}"
+                                                 class="text"
+                                                 a:data-toggle="modal" a:data-target="#distriModal"
+                                                 value="Formulario Distribuidor">
+                                    <f:ajax render=":contentModalDistri"/>
+                                </h:commandLink>
+                            </h:form> 
+                        </div>
+                    </li>
+
+                </ul>
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6">
+                                    <h:form prependId="false">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="">
+                                                    <div class="justify-content-center">
+                                                        <img src="../resources/img/user.png" class="img-fluid rounded-circle" width="200"
+                                                             height="200" alt="Generic placeholder thumbnail" style="text-align: center; margin-left: 30px;border: 3px solid #fff;
+                                                             margin-top: 50px; margin-bottom:50px;  "/>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Nombres: </th>
+                                                <td colspan="2"><h:inputText value="#{sessionController.user.usuNombres}"
+                                                                             a:type="text" required="true" 
+                                                                             requiredMessage="Campo requerido" id="name"
+                                                                             a:pattern="[a-z A-z á-é-í-ó-ú-ñ-Ñ]{5,40}"/>
+                                                    <h:messages style="color: red;" for="name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Primer Apellido: </th>
+                                                <td colspan="2"><h:inputText value="#{sessionController.user.usuPrimerApellido}"
+                                                                             a:type="text" required="true"
+                                                                             requiredMessage="Campo requerido" id="pAp"
+                                                                             a:pattern="[a-z A-z á-é-í-ó-ú-ñ-Ñ]{5,40}"/>
+                                                    <h:messages style="color: red;" for="pAp"/>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Segundo Apellido: </th>
+                                                <td colspan="2"><h:inputText value="#{sessionController.user.usuSegundoApellido}"
+                                                                             a:type="text" required="true"
+                                                                             requiredMessage="Campo requerido" id="sAp"
+                                                                             a:pattern="[a-z A-z á-é-í-ó-ú-ñ-Ñ]{5,40}"/>
+                                                    <h:messages style="color: red;" for="sAp"/>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Dirección: </th>
+                                                <td colspan="2"> <h:inputText value="#{sessionController.user.usuDireccion}"
+                                                                              a:type="text" required="true"
+                                                                              requiredMessage="Campo requerido"  id="dire"/>
+                                                    <h:messages style="color: red;" for="dire"/>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th scope="row">Teléfono: </th>
+                                                <td colspan="2"><h:inputText value="#{sessionController.user.usuTelefono}"
+                                                                             a:type="number" required="true"
+                                                                             a:pattern="[0-9]"
+                                                                             requiredMessage="Campo requerido" id="tele"/>
+                                                    <h:messages style="color: red;" for="tele"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Correo Electrónico: </th>
+                                                <td colspan="2"><h:inputText value="#{sessionController.user.usuCorreoElectronico}"
+                                                                             a:type="email" required="true"
+                                                                             a:pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
+                                                                             requiredMessage="Campo requerido" id="mail"/>
+                                                    <h:messages style="color: red;" for="mail"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div  class="row justify-content-center" style="margin-top: 30px;">
+                                                        <h:commandButton class="btn btn-info" value="Actualizar"
+                                                                         action="#{sessionController.actualizarUserAdmin()}"></h:commandButton>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ESTA VAINA ES OTRO TAB -->
+
+                    <div class="tab-pane fade" id="editPass" role="tabpanel" aria-labelledby="editPass-tab">
+                        <div class="container" style="margin-top: 150px;">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6">
+                                    <h:form>
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="2" style="text-align: center;"><h2>Actualizar Contraseña</h2></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Contraseña Actual:  </th>
+                                                    <td>
+                                                        <h:inputSecret  class="form-control" value="#{sessionController.clave}" required="true"
+                                                                        requiredMessage="Campo Requerido" id="clv1"/>
+                                                        <h:messages style="color: red;" for="clv1"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Nueva Contraseña:  </th>
+                                                    <td>
+                                                        <h:inputSecret  class="form-control" value="#{sessionController.newClave}" required="true"
+                                                                        requiredMessage="Campo Requerido" id="clv2"/>
+                                                        <h:messages style="color: red;" for="clv2"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Confirmar Contraseña:  </th>
+                                                    <td colspan="2">
+                                                        <h:inputSecret  class="form-control" value="#{sessionController.confirClave}" required="#{sessionController.newClave}"
+                                                                        requiredMessage="Campo Requerido" id="clv3"/>
+                                                        <h:messages style="color: red;" for="clv3"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <div  class="row justify-content-center" style="margin-top: 30px;">
+                                                            <h:commandButton class="btn btn-info" value="Actualizar"
+                                                                             action="#{sessionController.editPass()}"></h:commandButton>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODAL SUCURSAL -->
+
+                <div id="sucurModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog"> 
+                        <h:panelGroup id="contentModalSucur" layout="block" class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Registrar sucursal</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <h:form>
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Fecha de Registro: </th>
+                                            <td colspan="2"><h:inputText value="#{sucursalController.fechaReg}" a:type="date"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Nombre de Sucursal: </th>
+                                            <td colspan="2"><h:inputText value="#{sucursalController.nbSucur}"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Usuario: </th>
+                                            <td colspan="2">
+
+                                                <h:selectOneMenu id="tipoDocumento" value="#{sucursalController.distri}"
+                                                                 class="form-control col-md-7 col-xs-12">
+                                                    <f:selectItems value="#{sucursalController.userList}" 
+                                                                   var="ul" itemLabel="#{ul.usuNombres} #{ul.usuPrimerApellido}"
+                                                                   itemValue="#{ul.usuId}"/>
+                                                </h:selectOneMenu>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Ciudad: </th>
+                                            <td colspan="2">
+
+                                                <h:selectOneMenu id="tipoCiu" value="#{sucursalController.ciudad}"
+                                                                 class="form-control col-md-7 col-xs-12">
+                                                    <f:selectItems value="#{ciudadController.ciuList}" 
+                                                                   var="cl" itemLabel="#{cl.ciudNombre}"
+                                                                   itemValue="#{cl.ciudCodigo}"/>
+                                                </h:selectOneMenu>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Nombre Empresa Distribuidor: </th>
+                                            <td colspan="2">
+
+                                                <h:selectOneMenu id="tipoSucur" value="#{sucursalController.idDistri}"
+                                                                 class="form-control col-md-7 col-xs-12">
+                                                    <f:selectItems value="#{sucursalController.distriList}" 
+                                                                   var="dl" itemLabel="#{dl.distNombreEmpresa}"
+                                                                   itemValue="#{dl.distCod}"/>
+                                                </h:selectOneMenu>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </h:form>
+                            <div class="modal-footer">
+                                <h:form prependId="false">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-right: 3px;">Close</button>
+                                    <h:commandButton class="btn btn-info" value="Registrar" action="#{sucursalController.registrarSucursal()}"/>
+                                </h:form>
+                            </div>
+                        </h:panelGroup>
+
+                    </div>
+                </div>
+
+                <!-- MODAL DISTRIBUIDOR -->
+                <div id="distriModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog"> 
+                        <h:panelGroup id="contentModalDistri" layout="block" class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Registrar Distribuidor</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <h:form>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td colspan="2">
+                                                <h2><strong>Registrar Distribuidor</strong></h2>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">NIT de Empresa: </th>
+                                            <td colspan="2"><h:inputText value="#{distribuidorController.nombEmp}" a:type="number"/></td>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Nombre de Empresa: </th>
+                                            <td colspan="2"><h:inputText value="#{distribuidorController.nombEmp}"/></td>
+                                        </tr>
+
+                                        <tr>
+                                            <th scope="row">Nombre Distribuidor: </th>
+                                            <td colspan="2">
+
+                                                <h:selectOneMenu id="tipoSucur" value="#{distribuidorController.nuevoDistri}"
+                                                                 class="form-control col-md-7 col-xs-12">
+                                                    <f:selectItems value="#{distribuidorController.userList}" 
+                                                                   var="dis" itemLabel="#{dis.usuNombres} #{dis.usuPrimerApellido}"
+                                                                   itemValue="#{dis.usuId}"/>
+                                                </h:selectOneMenu>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </h:form>
+                            <div class="modal-footer">
+                                <h:form prependId="false">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-right: 3px;">Close</button>
+                                    <h:commandButton class="btn btn-info" value="Registrar" action="#{distribuidorController.regDistri()}"/>
+                                </h:form>
+                            </div>
+                        </h:panelGroup>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

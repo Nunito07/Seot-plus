@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <h:head>
+        <title>Registrarse</title>
+
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+
+
+        <link rel="stylesheet"  href="#{request.contextPath}/resources/css/registro.css"/><!-- estaba min -->
+        <link rel="stylesheet"  href="#{request.contextPath}/resources/css/bootstrap.min.css"/> <!-- estaba min -->   
+        <link rel="stylesheet"  href="#{request.contextPath}/resources/css/popper.css"/> <!-- estaba min -->
+        <link rel="stylesheet"  href="#{request.contextPath}/resources/css/sweetalert2.css"/> <!-- estaba min -->
+        <link rel="stylesheet"  href="#{request.contextPath}/resources/css/tether.css"/> <!-- estaba min -->
+        <link rel="icon" type="image/png" href="#{request.contextPath}/resources/img/Favicon.png" />
+
+
+    </h:head>
+
+    <h:body>
+        <div id="header"><span style="color: white;font-family: arial;font-size: 30px;">E&amp;M Extractores</span></div>
+
+        <div    id="footer">
+            <h6 style="margin-top: 15px;"> © Copyright Todos los derechos reservados ADSI </h6>
+        </div>
+
+
+        <div class="container" style="margin-top:20px;">
+            <h:form class="shadow well">
+                <div class="row d flex justify-content-center">
+                    <!-- AQUI COMIENZA OTRA CAJA -->
+                    <div class="col-md-12" id="ingreso" >
+
+                        <div>
+                            <h2 style="color: black;padding-top: 50px;">Recuperación De Contraseña</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+            <h:messages/>
+
+                                <h3>#{recuperarClave.correo}</h3>
+
+                                <div class="form-group">
+                                    <h:outputLabel for="validationCustom01" style="color: black;">Digite su contraseña</h:outputLabel>
+                                    <h:inputSecret  class="form-control" id="usuario"  value="#{recuperarClave.newClave}"  required="required" />
+                                </div>  
+
+                                <div class="form-group">
+                                    <h:outputLabel for="exampleInputPassword1" style="color: black;">Confirme su contraseña</h:outputLabel>
+                                    <h:inputSecret class="form-control" id="password" value="#{recuperarClave.confirClave}" required="required"/>
+                                </div> 
+
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-4" style="margin-left: 100px;margin-top: 20px;">
+                                <h:commandButton class="btn btn-outline-info btn-lg" value="Inicio" action="#{recuperarClave.editPass()}"></h:commandButton>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </h:form>
+        </div>
+
+    </h:body>
+
+    <script src="#{request.contextPath}/resources/js/jqu.js"></script>
+    <script src="#{request.contextPath}/resources/js/sweetalert2.js"></script>
+    <script src="#{request.contextPath}/resources/js/popper.js"></script>
+    <script src="#{request.contextPath}/resources/js/tether.js"></script>
+    <script src="#{request.contextPath}/resources/js/bootstrap.min.js"></script>
+
+
+</ui:composition>

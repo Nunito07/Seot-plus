@@ -1,0 +1,380 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:composition template="/WEB-INF/Templates/Modulos/main_1.xhtml">
+        <Script library="primefaces" src="#{request.contextPath}/resources/js/jquery/jqu.js"/>
+        <ui:define name="modelos">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="hist-tab" data-toggle="tab" href="#hist" role="tab" aria-controls="hist" aria-selected="true">Historial De Demanda</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" id="ciclo-tab" data-toggle="tab" href="#ciclo" role="tab" aria-controls="ciclo" aria-selected="false">Control De Producción Por Ciclos</a>
+                </li>
+
+                <!--<li class="nav-item">
+                    <a class="nav-link" id="mate-tab" data-toggle="tab" href="#materialx" role="tab" aria-controls="materialx" aria-selected="false">Material X Pedido</a>
+                </li>-->
+            </ul>
+
+
+
+            <div class="tab-content" id="myTabContent">
+
+                <!-- inicia historial -->
+                <div class="tab-pane fade show active" id="hist" role="tabpanel" aria-labelledby="hist-tab"> 
+
+
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="dom-tab" data-toggle="tab" href="#dom" role="tab" aria-controls="dom" aria-selected="true">Domestica</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="Semi-tab" data-toggle="tab" href="#Semi" role="tab" aria-controls="Semi" aria-selected="false">Semi-Industrial</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="ind-tab" data-toggle="tab" href="#ind" role="tab" aria-controls="ind" aria-selected="false">Industrial</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="meta-tab" data-toggle="tab" href="#meta" role="tab" aria-controls="meta" aria-selected="false">Metalica</a>
+                        </li>
+                    </ul>
+
+
+                    <!-- Histroial de demanda -->
+
+                    <div class="tab-content" id="myTabContentHistorial">
+
+                        <!-- linea domestica -->
+
+                        <div class="tab-pane fade show active" id="dom" role="tabpanel" aria-labelledby="dom-tab">    
+
+                            <h:form>
+                                <p:commandButton value="GraficarDom" id="graficar" actionListener="#{planeacionController.graficarDom()}" update="hpgGraficoDom"/>
+                                <p:chart type="bar" model="#{chart_dom.horizontalBarModel}" style="height:400px; width:60%"/>
+                                <h:panelGrid id="hpgGraficoDom">
+                                    <p:chart type="bar" model="#{planeacionController.barra}" style="height:400px; width:60%" rendered="#{planeacionController.barra != null}" />
+                                </h:panelGrid>
+                            </h:form>
+                            
+                            <h:dataTable class="table table-striped"
+                                         value="#{planeacionController.listarplaneacion}" var="plane">
+                                <h:column>
+                                    <f:facet name="header">Id Pedido</f:facet>
+                                    <h:outputText value="#{plane.tblPedidosPedCodigoUnico.pedCodigoUnico}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Ciclo</f:facet>
+                                    <h:outputText value="#{plane.ciclo.cicloId}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Linea</f:facet>
+                                    <h:outputText value="#{plane.tbLineasLinCodigo.linNombre}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Inicio Ciclo</f:facet>
+                                    <h:outputText value="#{plane.fechaInicioCiclo}">
+                                 <f:convertDateTime pattern="yyyy/MM/dd hh:mm"/> 
+                                 </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Fin ciclo</f:facet>
+                                    <h:outputText value="#{plane.fechaFinCiclo}">
+                                   <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>     
+                                   </h:outputText>
+                                </h:column>
+                            </h:dataTable>
+
+
+
+
+                        </div>
+
+                        <!-- linea semi-industrial -->
+
+                        <div class="tab-pane fade active" id="Semi" role="tabpanel" aria-labelledby="Semi-tab">
+
+
+                            <h:form>
+                                <p:commandButton value="GraficarSemi" id="graficar" actionListener="#{planeacionController.graficarSemi()}" update="hpgGraficoSemi"/>
+                                <p:chart type="bar" model="#{chart_sem.horizontalBarModel}" style="height:400px; width:60%"/>
+                                <h:panelGrid id="hpgGraficoSemi">
+                                    <p:chart type="bar" model="#{planeacionController.barra}" style="height:400px; width:60%" rendered="#{planeacionController.barra != null}" />
+                                </h:panelGrid>
+                            </h:form>
+                            
+                            <h:dataTable class="table table-striped"
+                                         value="#{planeacionController.listarplaneacion}" var="plane">
+                                <h:column>
+                                    <f:facet name="header">Id Pedido</f:facet>
+                                    <h:outputText value="#{plane.tblPedidosPedCodigoUnico.pedCodigoUnico}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Ciclo</f:facet>
+                                    <h:outputText value="#{plane.ciclo.cicloId}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Linea</f:facet>
+                                    <h:outputText value="#{plane.tbLineasLinCodigo.linNombre}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Inicio Ciclo</f:facet>
+                                    <h:outputText value="#{plane.fechaInicioCiclo}">
+                                 <f:convertDateTime pattern="yyyy/MM/dd HH:mm"/> 
+                                 </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Fin ciclo</f:facet>
+                                    <h:outputText value="#{plane.fechaFinCiclo}">
+                                   <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>     
+                                   </h:outputText>
+                                </h:column>
+                            </h:dataTable>
+
+                        </div>
+
+                        <!-- linea industrial -->
+
+                        <div class="tab-pane fade active" id="ind" role="tabpanel" aria-labelledby="ind-tab">
+
+
+                            <h:form>
+                                <p:commandButton value="GraficarInd" id="graficar" actionListener="#{planeacionController.graficarInd()}" update="hpgGraficoInd"/>
+                                <p:chart type="bar" model="#{chart_ind.horizontalBarModel}" style="height:400px; width:60%"/>
+                                <h:panelGrid id="hpgGraficoInd">
+                                    <p:chart type="bar" model="#{planeacionController.barra}" style="height:400px; width:60%" rendered="#{planeacionController.barra != null}" />
+                                </h:panelGrid>
+                            </h:form>
+                            
+                            <h:dataTable class="table table-striped"
+                                         value="#{planeacionController.listarplaneacion}" var="plane">
+                                <h:column>
+                                    <f:facet name="header">Id Pedido</f:facet>
+                                    <h:outputText value="#{plane.tblPedidosPedCodigoUnico.pedCodigoUnico}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Ciclo</f:facet>
+                                    <h:outputText value="#{plane.ciclo.cicloId}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Linea</f:facet>
+                                    <h:outputText value="#{plane.tbLineasLinCodigo.linNombre}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Inicio Ciclo</f:facet>
+                                    <h:outputText value="#{plane.fechaInicioCiclo}">
+                                 <f:convertDateTime pattern="yyyy/MM/dd HH:mm"/> 
+                                 </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Fin ciclo</f:facet>
+                                    <h:outputText value="#{plane.fechaFinCiclo}">
+                                   <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>     
+                                   </h:outputText>
+                                </h:column>
+                            </h:dataTable>
+                        </div>
+
+                        <!-- linea metalica -->
+
+                        <div class="tab-pane fade active" id="meta" role="tabpanel" aria-labelledby="meta-tab">
+
+
+                            <h:form>
+                                <p:commandButton value="GraficarMeta" id="graficarMeta" actionListener="#{planeacionController.graficarMeta()}" update="hpgGraficoMeta"/>
+                                <p:chart type="bar" model="#{chart_meta.horizontalBarModel}" style="height:400px; width:60%"/>
+                                <h:panelGrid id="hpgGraficoMeta">
+                                    <p:chart type="bar" model="#{planeacionController.barra}" style="height:400px; width:60%" rendered="#{planeacionController.barra != null}" />
+                                </h:panelGrid>
+                            </h:form>
+                            
+                            <h:dataTable class="table table-striped"
+                                         value="#{planeacionController.listarplaneacion}" var="plane">
+                                <h:column>
+                                    <f:facet name="header">Id Pedido</f:facet>
+                                    <h:outputText value="#{plane.tblPedidosPedCodigoUnico.pedCodigoUnico}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Ciclo</f:facet>
+                                    <h:outputText value="#{plane.ciclo.cicloId}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Linea</f:facet>
+                                    <h:outputText value="#{plane.tbLineasLinCodigo.linNombre}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Inicio Ciclo</f:facet>
+                                    <h:outputText value="#{plane.fechaInicioCiclo}">
+                                 <f:convertDateTime pattern="yyyy/MM/dd HH:mm"/> 
+                                 </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Fin ciclo</f:facet>
+                                    <h:outputText value="#{plane.fechaFinCiclo}">
+                                   <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>     
+                                   </h:outputText>
+                                </h:column>
+                            </h:dataTable>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+                <!-- finaliza historial -->
+
+
+
+
+
+
+
+
+
+                <!-- Contro de producción Por Ciclos  -->
+
+                <!-- inicia ciclos segundo contenedor -->
+                <div class="tab-pane fade active" id="ciclo" role="tabpanel" aria-labelledby="ciclo-tab">
+
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="ciclo1-tab" data-toggle="tab" href="#ciclo1" role="tab" aria-controls="ciclo1" aria-selected="true">Ciclo 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="ciclo2-tab" data-toggle="tab" href="#ciclo2" role="tab" aria-controls="ciclo2" aria-selected="false">Ciclo 2</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="ciclo3-tab" data-toggle="tab" href="#ciclo3" role="tab" aria-controls="ciclo3" aria-selected="false">Ciclo 3</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="ciclo4-tab" data-toggle="tab" href="#ciclo4" role="tab" aria-controls="ciclo4" aria-selected="false">Ciclo 4</a>
+                        </li>
+                    </ul>
+
+
+                    <!-- ciclo1 -->
+                    <div class="tab-content" id="myTabContent">
+
+
+                        <div class="tab-pane fade show active" id="ciclo1" role="tabpanel" aria-labelledby="ciclo1-tab">
+
+                            <p:chart type="bar" model="#{chart_ciclo1.combinedModel}" style="height:400px; width:100%"/>
+
+
+                        </div>
+
+                        <!-- ciclo2 -->
+
+                        <div class="tab-pane fade active" id="ciclo2" role="tabpanel" aria-labelledby="ciclo2-tab">
+
+
+                            <p:chart type="bar" model="#{chart_ciclo2.combinedModel}" style="height:400px; width:100%" />
+
+
+                        </div>
+
+                        <!-- ciclos3 -->
+
+                        <div class="tab-pane fade active" id="ciclo3" role="tabpanel" aria-labelledby="ciclo3-tab">
+
+
+                            <p:chart type="bar" model="#{chart_ciclo3.combinedModel}" style="height:400px; width:100%" />
+
+
+                        </div>
+
+                        <!-- ciclo4 -->
+
+                        <div class="tab-pane fade active" id="ciclo4" role="tabpanel" aria-labelledby="ciclo4-tab">
+
+
+                            <p:chart type="bar" model="#{chart_ciclo4.combinedModel}" style="height:400px; width:100%" />
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+
+
+                <!-- Material X Producto -->
+                <div class="tab-pane fade" id="materialx" role="tabpanel" aria-labelledby="materialx-tab">
+
+                    <table class="egt">
+
+                        <tr>
+
+                            <th scope="row">Materia \ Lamina</th>
+
+                            <th> Lamina de 100x100</th>
+
+                        </tr>
+
+                        <tr>
+
+                            <th >10"</th>
+
+                            <td>28</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>12"</th>
+
+                            <td>25</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>14"</th>
+
+                            <td>20</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>15"</th>
+
+                            <td>17</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>16"</th>
+
+                            <td>13</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>17"</th>
+
+                            <td>11</td>
+
+                        </tr>
+
+                    </table> 
+
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+
+</html>

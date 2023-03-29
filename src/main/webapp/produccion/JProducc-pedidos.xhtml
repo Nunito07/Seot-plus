@@ -1,0 +1,536 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <body>
+        <ui:composition template="./../WEB-INF/Templates/Modulos/mainJProducc.xhtml">
+
+            <ui:define name="modelos">
+
+                <!--INICIA MODAL EDITAR-->
+
+                <div id="modalEditar" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <h:panelGroup id="contentModalEditar" layout="block" class="modal-content">
+                            <h:form id="demo-form2" a:data-parsley-validate="true" class="form-horizontal form-label-left"
+                                    prependId="false">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Editar Pedido</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-12 col-sm-12 col-xs-12" for="Fecha Solicitud">Fecha Solicitud <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <h:inputText id="fechaSol" value="#{pedidoController.pedidoSeleccionado.pedFechaSolicitud}"
+                                                         a:type="date" a:required="required" class="form-control col-md-7 col-xs-12" converter="fechaConverter"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-12 col-sm-12 col-xs-12" for="Fecha Entrega">Fecha Entrega <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <h:inputText id="fechaEnt" a:type="date" value="#{pedidoController.pedidoSeleccionado.pedFechaEntrega}"
+                                                         a:required="required" class="form-control col-md-7 col-xs-12" converter="fechaConverter"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-12 col-sm-12 col-xs-12" for="Fecha MGarantia">Fecha MGarantia <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <h:inputText id="FechaGar" value="#{pedidoController.pedidoSeleccionado.pedFechaMgarantia}"
+                                                         a:type="date" a:required="required" class="form-control col-md-7 col-xs-12" converter="fechaConverter"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="valorTotal">Valor Total
+                                        </label>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <h:inputText id="valorTotal" value="#{pedidoController.pedidoSeleccionado.pedValortotal}"
+                                                         class="form-control col-md-7 col-xs-12"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-12 col-sm-3 col-xs-12" for="novedad">Novedad
+                                        </label>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <h:inputText id="novedad" a:type="text" value="#{pedidoController.pedidoSeleccionado.pedNovedad}"
+                                                         a:required="required" class="form-control col-md-7 col-xs-12"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-12 col-sm-3 col-xs-12" for="estado">Estado <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <h:selectOneMenu id="estado" value="#{pedidoController.pedidoSeleccionado.tblEstadoPedidocodestadped}"
+                                                             class="form-control col-md-7 col-xs-12">
+                                                <f:selectItems value="#{estadoPedidoController.estados}" var="est" itemLabel="#{est.codEstadPed}-#{est.tipoEstadPed}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-12 col-sm-12 col-xs-12" for="cotizacion">Cotización <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <h:inputText id="cotizacion" a:type="text" value="#{pedidoController.pedidoSeleccionado.tblcotizacionCotCod.cotCod}"
+                                                         a:required="required" class="form-control col-md-7 col-xs-12"/>
+                                        </div>
+
+                                    </div>
+                                    <div class="ln_solid"></div>
+
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <h:commandButton actionListener="#{pedidoController.editarPedido()}" 
+                                                     class="btn btn-success" value="Editar"/>
+                                </div>
+                            </h:form>
+                        </h:panelGroup>
+
+                    </div>
+                </div>
+
+                <!--FINALIZA MODAL EDITAR-->
+
+
+                <!--INICIA MODAL ELIMINAR-->
+
+
+                <div id="modalEliminar" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <h:panelGroup id="contentModalEliminar" layout="block" class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">¿Seguro de eliminar el pedido?</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                            </div>
+                            <div class="modal-body">
+                                <p>Codigo Unico:#{pedidoController.pedidoSeleccionado.pedCodigoUnico}</p>
+
+                            </div>
+                            <div class="modal-footer">
+                                <h:form prependId="false">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <h:commandLink actionListener="#{pedidoController.eliminar()}" 
+                                                   class="btn btn-danger" value="Eliminar"/>
+                                </h:form>
+                            </div>
+                        </h:panelGroup>
+
+                    </div>
+                </div>
+
+                <!--FINALIZA MODAL ELIMINAR-->
+
+                <!--INICIA MODAL CANCELAR-->
+
+                <div id="ModalCancelar" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <h:form prependId="false">
+                            <h:panelGroup id="contentModalCancelar" layout="block" class="modal-content">
+                                <div class="modal-header">
+
+                                    <h4 class="modal-title">Enviar a Producción</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    ¿Desea Enviar a producción la solicitud?<br></br>
+                                    CODIGO UNICO:#{pedidoController.pedidoSeleccionado.pedCodigoUnico}   
+                                    
+                                </div>
+                                <div class="modal-footer">
+
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                                    <h:commandButton  action="#{pedidoController.enviarProduccion()}"
+                                                      class="btn btn-info" value="Enviar" />
+
+                                </div>
+                            </h:panelGroup>
+                        </h:form>
+
+                        <!--FINALIZA MODAL CANCELAR-->
+
+                    </div>
+                </div>
+
+
+                <!--INICIA CONTENIDO DE LOS TABS-->
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Consultar Solicitudes de Pedido</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Seguimiento</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Historial de Solicitudes</a>
+                            </li>
+                        </ul>
+
+                        <!--INICIA TAB CONSULTAR SOLICITUDES-->
+
+
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                                <div class="row mt-5">
+                                    <div class="col-md-12">
+                                        <h5>Buscar por Estado</h5>
+                                    </div>
+                                    <div class="col-md-12">
+
+                                        <h:form  a:data-parsley-validate="true" prependId="false">
+
+                                            <h:panelGroup>
+                                                <div class="row mt-2">
+                                                    <div class="col-md-6">
+                                                        <h:inputText id="esta" class="form-control" value="#{pedidoController.estadoPed}"/>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div>
+                                                            <h:commandButton class="btn btn-info"
+                                                                             value="Buscar" action="#{pedidoController.filtrarPedidosXEstado()}">
+                                                                <f:ajax execute="@form" render=":tablaEst" immediate="true"/>
+                                                            </h:commandButton>       
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </h:panelGroup>
+
+
+                                            <h:panelGroup id="tablaEst" layout="block" >
+                                                <div class="row mt-5">
+                                                    <h:dataTable value="#{pedidoController.pedEstado}"  class="table table-sm table-bordered table-striped" var="ped">
+                                                        <h:column>
+                                                            <f:facet name="header"> CodigoUnico</f:facet>
+                                                                #{ped.pedCodigoUnico}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">FechaSolicitud </f:facet>
+                                                            <h:outputText value="#{ped.pedFechaSolicitud}"  >
+                                                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                            </h:outputText>
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">FechaEntrega </f:facet>
+                                                            <h:outputText value="#{ped.pedFechaEntrega}">
+                                                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                            </h:outputText>
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">FechaMgarantia</f:facet>
+                                                            <h:outputText value="#{ped.pedFechaMgarantia}">
+                                                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                            </h:outputText>
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Valortotal</f:facet>
+                                                                #{ped.pedValortotal}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Novedad</f:facet>
+                                                                #{ped.pedNovedad}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Estado</f:facet>             
+                                                                #{ped.tblEstadoPedidocodestadped.codEstadPed}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Cod. Cotizacion</f:facet>
+                                                                #{ped.tblcotizacionCotCod.cotCod}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Opciones</f:facet>
+                                                            <h:form>
+                                                                <h:commandButton class="btn btn-info mr-2" value="Excel"></h:commandButton>
+                                                                <h:commandButton class="btn btn-info" value="PDF"></h:commandButton> 
+                                                            </h:form>
+                                                        </h:column>
+                                                    </h:dataTable>
+                                                </div>
+                                            </h:panelGroup>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--FINALIZA TAB CONSULTAR SOLICITUDES-->
+
+                            <!--INICIA TAB SEGUIMIENTO-->
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="row"> 
+                                    <div class="col-md-12 ">
+                                        <div class="row mt-5 ml-3">
+                                            <h5> Resumén Solicitudes</h5>
+                                        </div>
+                                        <div class="row justify-content-center"> 
+                                            <!--CARDS-->
+                                            <div class="col-md-2 col-sm-3 col-xs-3">
+                                                <div class="card text-black mt-3 mb-1">
+                                                    <div class="card-header bg-warning text-white">
+                                                        <h5 class="text-center">Recepción</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <p class="card-text"><h4 class="text-center">#{pedidoController.countRecep.get(0)}</h4></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-3 col-xs-3">
+
+                                                <div class="card text-black mt-3 mb-1">
+                                                    <div class="card-header bg-info text-white">
+                                                        <h5 class="text-center">Producción</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <p class="card-text"><h4 class="text-center">#{pedidoController.countProduc.get(0)}</h4></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2 col-sm-2 col-xs-2">
+
+                                                <div class="card text-black mt-3 mb-1">
+                                                    <div class="card-header bg-success text-white">
+                                                        <h5 class="text-center">Empaque</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <p class="card-text"><h4 class="text-center">#{pedidoController.countEmp.get(0)}</h4></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2 col-sm-3 col-xs-3">
+                                                <div class="card text-black mt-3 mb-3">
+                                                    <div class="card-header bg-info text-white">
+                                                        <h5 class="text-center">Enviadas</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <p class="card-text"><h4 class="text-center">#{pedidoController.countEnv.get(0)}</h4></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-2 col-xs-3">
+                                                <div class="card text-black mt-3 mb-3">
+                                                    <div class="card-header bg-danger text-white">
+                                                        <h5 class="text-center">Canceladas</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <p class="card-text"><h4 class="text-center">#{pedidoController.countCancel.get(0)}</h4></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row ml-3 mt-3">
+                                            <h5>Solicitudes En recepción </h5>
+                                        </div>
+
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                            <div class="row mt-5">
+                                                <h:dataTable value="#{pedidoController.pedRecepcion}"  class="table table-sm table-bordered table-striped" var="ped">
+                                                    <h:column>
+                                                        <f:facet name="header"> CodigoUnico</f:facet>
+                                                            #{ped.pedCodigoUnico}
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">FechaSolicitud </f:facet>
+                                                        <h:outputText value="#{ped.pedFechaSolicitud}">
+                                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                        </h:outputText>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">FechaEntrega </f:facet>
+                                                        <h:outputText value="#{ped.pedFechaEntrega}">
+                                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                        </h:outputText>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">FechaMgarantia</f:facet>
+                                                        <h:outputText value="#{ped.pedFechaMgarantia}">
+                                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                        </h:outputText>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Valortotal</f:facet>
+                                                            #{ped.pedValortotal}
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Novedad</f:facet>
+                                                            #{ped.pedNovedad}
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Estado</f:facet>             
+                                                            #{ped.tblEstadoPedidocodestadped.codEstadPed}
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Cod. Cotizacion</f:facet>
+                                                            #{ped.tblcotizacionCotCod.cotCod}
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Opciones</f:facet>
+                                                        <h:form>
+                                                            <h:commandLink actionListener="#{pedidoController.seleccionarPedido(ped)}" 
+                                                                           class="btn btn-info" value="Enviar a Producción"
+                                                                           a:data-toggle="modal" a:data-target="#ModalCancelar">
+                                                                <f:ajax render=":contentModalCancelar"/>
+
+                                                            </h:commandLink>
+
+                                                        </h:form>
+                                                    </h:column>
+                                                </h:dataTable>
+                                            </div>
+
+                                        </div>
+
+                                    </div>  
+                                </div>
+                            </div>
+                            <!--FINALIZA TAB SEGUIMIENTO-->
+
+
+                            <!--INICIA TAB HISTORIAL DE SOLICITUDES-->
+
+                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+                                <div class="container">
+
+                                    <div class="row mt-5">
+                                        <div class="col-md-12">
+                                            <h4>Buscar Pedidos</h4>
+                                        </div>
+
+                                        <!--INICIA CAMPOS BUSQUEDA DE FECHA -->
+                                        <div class="col-md-12">
+                                            <h:form  a:data-parsley-validate="true" prependId="false">
+
+                                                <h:panelGroup>
+                                                    <div class="row"> 
+                                                        <div class="col-md-6 form-group">
+
+                                                            <label for="cod" >Fecha Inicial</label>
+                                                            <h:inputText a:type="date" id="fechaIni" class="form-control" value="#{pedidoController.fechaIni}"  converter="fechaConverter"/> 
+                                                        </div>
+
+                                                        <div class=" col-md-6 form-group">                    
+                                                            <label for="cod" >Fecha Final</label>
+                                                            <h:inputText a:type="date" class="form-control" value="#{pedidoController.fechaFin}" converter="fechaConverter"/> 
+                                                        </div>
+                                                    </div> 
+
+                                                    <div class="form-group">
+                                                        <h:commandButton class="btn btn-info"
+                                                                         value="Buscar" action="#{pedidoController.filtrarPedidos()}">
+                                                            <f:ajax execute="@form" render=":tablaFechas" immediate="true"/>
+                                                        </h:commandButton>       
+
+                                                    </div>
+
+                                                </h:panelGroup>
+
+
+                                                <!--FINALIZA CAMPOS BUSQUEDA DE FECHA -->
+
+
+                                                <!--INICIA TABLA DE LISTADO POR FECHA -->
+                                                <h:panelGroup id="tablaFechas" layout="block" >
+                                                    <h2>Pedidos</h2>
+                                                    <h:dataTable value="#{pedidoController.pedFechas}"  class="table table-sm table-bordered table-striped" var="ped">
+                                                        <h:column>
+                                                            <f:facet name="header"> CodigoUnico</f:facet>
+                                                                #{ped.pedCodigoUnico}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">FechaSolicitud </f:facet>
+                                                            <h:outputText value="#{ped.pedFechaSolicitud}"  >
+                                                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                            </h:outputText>
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">FechaEntrega </f:facet>
+                                                            <h:outputText value="#{ped.pedFechaEntrega}">
+                                                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                            </h:outputText>
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">FechaMgarantia</f:facet>
+                                                            <h:outputText value="#{ped.pedFechaMgarantia}">
+                                                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                            </h:outputText>
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Valortotal</f:facet>
+                                                                #{ped.pedValortotal}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Novedad</f:facet>
+                                                                #{ped.pedNovedad}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Estado</f:facet>             
+                                                                #{ped.tblEstadoPedidocodestadped.codEstadPed}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Cod. Cotizacion</f:facet>
+                                                                #{ped.tblcotizacionCotCod.cotCod}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Opciones</f:facet>
+                                                            <h:form>
+                                                                <h:commandButton class="btn btn-info mr-2" value="Excel"></h:commandButton>
+                                                                <h:commandButton class="btn btn-info" value="PDF"></h:commandButton> 
+                                                            </h:form>
+                                                        </h:column>
+                                                    </h:dataTable>
+                                                </h:panelGroup>
+
+                                                <!--FINALIZA TAB HISTORIAL DE SOLICITUDES-->
+
+                                            </h:form>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!-- FINALIZA GESTIONAR CATALOGO -->
+
+                    </div>
+                </div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

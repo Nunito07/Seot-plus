@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/Templates/Modulos/main.xhtml">
+
+
+
+
+
+
+
+            <ui:define name="modelos">
+
+
+                <link rel="stylesheet"  href="#{request.contextPath}/resources/now/assets/css/now-ui-dashboard.css?v=1.1.0"/> 
+                <link rel="stylesheet"  href="#{request.contextPath}/resources/now/assets/demo/demo.css  "/> 
+
+
+
+
+
+
+                <div class="panel-header">
+                    <canvas id="bigDashboardChart"></canvas>
+                </div>
+                
+                <hr/> 
+                <div class="" >
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card card-chart">
+                                <div class="card-header">
+                                    <h5 class="card-category">Usuarios</h5>
+                                    <h4 class="card-title">Registros</h4>
+
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="lineChartExample"></canvas>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card card-chart">
+                                <div class="card-header">
+                                    <h5 class="card-category">2018 Ventas</h5>
+                                    <h4 class="card-title">Productos</h4>
+
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="lineChartExampleWithNumbersAndGrid"></canvas>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card card-chart">
+                                <div class="card-header">
+                                    <h5 class="card-category">Garantias</h5>
+                                    <h4 class="card-title">Ultimo mes</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="barChartSimpleGradientsNumbers"></canvas>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+
+
+</html>
