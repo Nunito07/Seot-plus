@@ -1,24 +1,18 @@
 package com.seot.controllers.usuarios;
 
-import com.seot.facade.UsuarioFacade;
 import com.seot.facade.UsuarioFacadeLocal;
 import com.seot.modelos.entities.Usuario;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import jakarta.ejb.EJB;
 import jakarta.inject.Inject;
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebFilter(filterName = "PreRecuperaFilter", urlPatterns = {"/usuarios/recuperacionclave/index"})
 
@@ -45,7 +39,7 @@ public class PreRecuperaFilter implements Filter {
         HttpServletRequest rq = (HttpServletRequest) request;
         HttpServletResponse rs = (HttpServletResponse) response;
         try {
-            int id = Integer.valueOf(rq.getParameter("id"));
+            int id = Integer.parseInt(rq.getParameter("id"));
             String codigo = rq.getParameter("codigo");
             Usuario usuario = uFacade.find(id);
             if (usuario != null && codigo != null && codigo.trim().length() > 0) {
