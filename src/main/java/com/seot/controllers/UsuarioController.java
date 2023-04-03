@@ -14,11 +14,11 @@ import com.seot.utils.MessagesUtil;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.view.ViewScoped;
+import jakarta.annotation.PostConstruct;
+import jakarta.ejb.EJB;
+import jakarta.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.view.ViewScoped;
 
 /**
  *

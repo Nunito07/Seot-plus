@@ -8,10 +8,10 @@ package com.seot.controllers;
 import com.seot.facade.CiudadFacadeLocal;
 import com.seot.modelos.entities.Ciudad;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
+import jakarta.annotation.PostConstruct;
+import jakarta.ejb.EJB;
+import jakarta.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
 
 /**
  *

@@ -8,11 +8,11 @@ package com.seot.converters;
 import com.seot.facade.EstadoPedidoFacadeLocal;
 import com.seot.modelos.entities.EstadoPedido;
 import java.util.Optional;
-import javax.enterprise.inject.spi.CDI;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
+import jakarta.enterprise.inject.spi.CDI;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.FacesConverter;
 
 @FacesConverter(forClass = EstadoPedido.class)
 public class EstadoPedidoConverter implements Converter {

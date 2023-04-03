@@ -15,13 +15,13 @@ import com.seot.utils.MessagesUtil;
 
 import java.util.Date;
 import java.util.List;
-import javax.ejb.EJB;
+import jakarta.ejb.EJB;
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
 
-import javax.inject.Named;
+import jakarta.inject.Named;
 
 
 

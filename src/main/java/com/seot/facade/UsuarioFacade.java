@@ -7,10 +7,10 @@ package com.seot.facade;
 
 import com.seot.modelos.entities.Usuario;
 import com.seot.utils.MessagesUtil;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 
 /**
  *

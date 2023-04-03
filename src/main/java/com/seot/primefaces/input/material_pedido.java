@@ -1,17 +1,18 @@
 package com.seot.primefaces.input;
  
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import java.io.Serializable;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
  
-@ManagedBean
 @ViewScoped
-public class material_pedido {
+@Named
+public class material_pedido implements Serializable{
  
     private Double input1;
  
  
     public material_pedido() {
-        this.input1 = new Double(0);
+        this.input1 = Double.valueOf(0);
         input1 = 0d;
     }
  

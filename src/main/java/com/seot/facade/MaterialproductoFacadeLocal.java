@@ -7,7 +7,7 @@ package com.seot.facade;
 
 import com.seot.modelos.entities.Materialproducto;
 import java.util.List;
-import javax.ejb.Local;
+import jakarta.ejb.Local;
 
 /**
  *

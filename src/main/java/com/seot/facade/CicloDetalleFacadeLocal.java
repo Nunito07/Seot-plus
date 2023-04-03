@@ -7,7 +7,7 @@ package com.seot.facade;
 
 import com.seot.modelos.entities.CicloDetalle;
 import java.util.List;
-import javax.ejb.Local;
+import jakarta.ejb.Local;
 
 /**
  *
